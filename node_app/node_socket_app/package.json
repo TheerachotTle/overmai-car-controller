@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@abandonware/noble": "^1.9.2-23",
+    "noble": "^1.9.1",
+    "xpc-connect": "^3.0.0"
+  }
+}
