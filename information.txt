@@ -1,0 +1,60 @@
+Car UUID & Ports 
+Red:	07ad9c444182bd10091ea55cf738d2d6 4001
+Blue:	8a38a5c780bf6e846ce80a7dedf881db 4002
+Black:	96e2237b2f36e0f8a2220f5ecf640495 4003
+
+Connect to car
+1. cd [path_to_anki-drive-python-sdk]/node_app/node_socket_app
+2. npm install
+3. node node_server.js [port] [car's uuid]
+* 1 port/car
+
+Run car
+1. cd [path_to_anki-drive-python-sdk]/python_app
+2. python3 server.py
+
+COMMAND
+node node_server.js 4001 07ad9c444182bd10091ea55cf738d2d6
+node node_server.js 4002 8a38a5c780bf6e846ce80a7dedf881db
+node node_server.js 4003 96e2237b2f36e0f8a2220f5ecf640495
+
+Data
+piece:			piece id
+location:		horizontal position on piece
+offset:			vertical position on piece (used for calculate lane)
+speed:			speed
+self_speed:		assign speed
+lane:			lane
+piece_order:	piece order counted from starting point * still have some error but if web need percent, no need to fix this :-)
+percent:		current percent in track
+
+Command used
+change_speed(speed, acceleration) # unit = mm/s, mm/s^2
+change_lane(speed, acceleration, offset) # offset from current position (+ for right, - for left)
+
+Piece order (indicate the direction the car moves)
+33 (on 34 but starting from start line)
+17
+18
+36
+18 (182)
+18 (181)
+34
+
+Connect piece
+- piece order: at the back of each piece has number on it (except 181 and 182, there's no number attached to it), connect in order mentioned in piece order
+- piece direction: at the back of each piece has arrow and letter 'cw' written with light pencil, connect in piece in the direction that arrow point to (the final result indicated by arrow would be 33 -> 34 -> 18(1) -> 18(2) -> 36 -> 18 -> 17, *opposite* direction with piece order since driving direction is counter-clockwise)
+
+Lane order
+1 -> innermost (one with 'start' message)
+2
+3
+4 -> outermost (one with 'finish' message)
+
+Lane center offset (1->4)
+[-68, -23, 23, 68]
+
+If you need any further information I forgot to include here, feel free to contact me!
+
+
+
